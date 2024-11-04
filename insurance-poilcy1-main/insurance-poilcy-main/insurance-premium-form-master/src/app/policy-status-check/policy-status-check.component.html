@@ -1,0 +1,40 @@
+<div class="status-check-container">
+    <h1>Status Check</h1>
+<div>
+    <!-- Policy Status Section -->
+    <div>
+      <h2>Check Policy Status</h2>
+      <input [(ngModel)]="policyNumber" placeholder="Enter Policy Number" />
+      <button (click)="checkPolicyStatus()">Check Status</button>
+      <div *ngIf="policyStatus">
+        <h3>Policy Status:</h3>
+        <p>policyStatus: {{ policyStatus.policyStatus }}</p>
+        <p>InsuranceCoverage: {{ policyStatus.insuranceCoverage }}</p>
+        <!-- Add other relevant policy details -->
+      </div>
+      
+    <button *ngIf="selectedPolicy" (click)="downloadPolicy(selectedPolicy)">
+        Download Policy Details
+      </button></div>
+    </div>
+  
+    <!-- Claim Status Section -->
+    <div>
+      <h2>Check Claim Status</h2>
+      <input [(ngModel)]="claimNumber" placeholder="Enter Claim Number" />
+      <button (click)="checkClaimStatus()">Check Status</button>
+      <div *ngIf="claimStatus">
+        <h3>Claim Status:</h3>
+        <p>Status: {{ claimStatus.claimStatus }}</p>
+        <p>Amount Approved: {{ claimStatus.amountApproved | currency:'INR':'symbol':'1.0-0' }}</p>
+        <p>Amount Paid: {{ claimStatus.amountPaid | currency:'INR':'symbol':'1.0-0' }}</p>
+        <p>Pending Amount: {{ claimStatus.pendingAmount | currency:'INR':'symbol':'1.0-0' }}</p>
+        <!-- Add other relevant claim details -->
+    </div> 
+    <button *ngIf="selectedClaim" (click)="downloadClaimDetails(selectedClaim)">
+        Download Claim Details
+      </button>
+    
+      
+  </div>
+  

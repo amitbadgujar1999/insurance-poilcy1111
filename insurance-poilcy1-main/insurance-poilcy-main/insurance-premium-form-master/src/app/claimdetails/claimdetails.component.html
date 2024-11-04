@@ -1,0 +1,81 @@
+<div class="claim-details-container">
+  <h1>Claim Details</h1>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="!loading && claimDetails">
+    <!-- Display claim details -->
+    <div class="detail-item">
+      <strong>Claim Number:</strong> {{ claimDetails.id }}
+    </div>
+    <div class="detail-item">
+      <strong>Patient Name:</strong> {{ claimDetails.patientName }}
+    </div>
+    <div class="detail-item">
+      <strong>Policy Number:</strong> {{ claimDetails.policyNumber }}
+    </div>
+    <div class="detail-item">
+      <strong>Date of Claim:</strong> {{ claimDetails.dateOfClaim | date:'yyyy-MM-dd' }}
+    </div>
+    <div class="detail-item">
+      <strong>Claim Amount:</strong> {{ claimDetails.claimAmount | currency:'INR':'symbol':'1.0-0' }}
+    </div>
+    <div class="detail-item">
+      <strong>Claim Status:</strong> {{ claimDetails.claimStatus }}
+    </div>
+    <div class="detail-item">
+      <strong>Date of Incident:</strong> {{ claimDetails.dateOfIncident | date:'yyyy-MM-dd' }}
+    </div>
+    <div class="detail-item">
+      <strong>Incident Description:</strong> {{ claimDetails.incidentDescription }}
+    </div>
+    <div class="detail-item">
+      <strong>Hospital Name:</strong> {{ claimDetails.hospitalName }}
+    </div>
+    <div class="detail-item">
+      <strong>Doctor Name:</strong> {{ claimDetails.doctorName }}
+    </div>
+    <div class="detail-item">
+      <strong>Diagnosis:</strong> {{ claimDetails.diagnosis }}
+    </div>
+    <div class="detail-item">
+      <strong>Treatment Details:</strong> {{ claimDetails.treatmentDetails }}
+    </div>
+    <div class="detail-item">
+      <strong>Amount Approved:</strong> {{ claimDetails.amountApproved | currency:'INR':'symbol':'1.0-0' }}
+    </div>
+    <div class="detail-item">
+      <strong>Amount Paid:</strong> {{ claimDetails.amountPaid | currency:'INR':'symbol':'1.0-0' }}
+    </div>
+    <div class="detail-item">
+      <strong>Pending Amount:</strong> {{ claimDetails.pendingAmount | currency:'INR':'symbol':'1.0-0' }}
+    </div>
+    <div class="detail-item">
+      <strong>Documents Submitted:</strong>
+      <span *ngFor="let doc of claimDetails.documentsSubmitted">{{ doc }}<span *ngIf="!$last">, </span></span>
+    </div>
+    <div class="detail-item">
+      <strong>Remarks:</strong> {{ claimDetails.remarks }}
+    </div>
+
+    <!-- Approval and Rejection Buttons -->
+    <div class="approval-container">
+      <button *ngIf="claimDetails.claimStatus !== 'Approved' && claimDetails.claimStatus !== 'Rejected'" (click)="approveClaim()">Approve Claim</button>
+      <button *ngIf="claimDetails.claimStatus !== 'Rejected'" (click)="rejectClaim()">Reject Claim</button>
+    </div>
+
+    <!-- Display Approval Message -->
+    <div *ngIf="approvalMessage" class="approval-message">
+      {{ approvalMessage }}
+    </div>
+
+    <!-- Rejection Reason Modal -->
+    <div *ngIf="showRejectModal" class="modal">
+      <div class="modal-content">
+        <h2>Reject Claim</h2>
+        <textarea [(ngModel)]="rejectionReason" placeholder="Enter reason for rejection"></textarea>
+        <button (click)="confirmReject()">Submit Rejection</button>
+        <button (click)="cancelReject()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <button (click)="goBack()">Back</button>
+</div>

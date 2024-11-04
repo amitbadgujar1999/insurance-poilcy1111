@@ -1,0 +1,33 @@
+<!-- src/app/dataclaim/dataclaim.component.html -->
+<div class="claims-table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Claim Number</th>
+          <th>Patient Name</th>
+          <th>Policy Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let claim of paginatedClaims">
+            <td><button (click)="viewclaimDetails(claim.claimNumber)">
+                {{ claim.claimNumber }}
+              </button></td>
+          <td>{{ claim.patientName }}</td>
+          <td><button (click)="viewPolicyDetails(claim.policyNumber)">
+            {{ claim.policyNumber }}
+          </button></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-controls">
+      <button *ngFor="let pageNumber of getPageNumbers()" (click)="onPageChange(pageNumber)">
+        {{ pageNumber }}
+      </button>
+
+    </div>
+  </div>
+  
+
+  
+  

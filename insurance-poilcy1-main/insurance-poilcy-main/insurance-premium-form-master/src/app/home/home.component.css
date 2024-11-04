@@ -1,0 +1,78 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #c6c6cc;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space between logo and nav items */
+}
+
+/* Container styles */
+.container {
+  display: flex;
+  justify-content: space-between; /* Ensures logo and nav items are spaced correctly */
+  align-items: center;
+  width: 100%;
+}
+
+/* Navbar brand styles */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  color: #0a0303;
+  text-decoration: none;
+}
+
+/* Logo styling */
+.logo {
+  height: 45px; /* Adjust as needed */
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+
+/* Nav styles */
+.nav {
+  list-style: none;
+  display: flex;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Nav item styling */
+.nav-item {
+  margin: 0 15px; /* Space between nav items */
+}
+
+/* Nav link styling */
+.nav-link {
+  color: #0c0707;
+  text-decoration: none;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #9e6767;
+}
+
+/* Image container styles */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+}
+
+.below-navbar-image {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  object-fit: cover; /* Ensure the image covers the area */
+}

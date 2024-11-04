@@ -1,0 +1,67 @@
+<div class="policy-details-container">
+    <h1>Policy Details</h1>
+    
+    <form class="policy-details-form">
+      <div class="form-group">
+        <label for="policyNumber">Policy Number:</label>
+        <input type="text" id="policyNumber" value="{{ policyDetails?.policyNumber }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" value="{{ policyDetails?.firstName }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" value="{{ policyDetails?.lastName }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="insuranceCoverage">Insurance Coverage:</label>
+        <input type="text" id="insuranceCoverage" value="{{ policyDetails?.insuranceCoverage }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="insurancePremium">Insurance Premium:</label>
+        <input type="text" id="insurancePremium" value="{{ policyDetails?.insurancePremium | currency:'INR':'symbol':'1.0-0' }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="policyStatus">Policy Status:</label>
+        <input type="text" id="policyStatus" value="{{ policyDetails?.policyStatus }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="policyStartDate">Policy Start Date:</label>
+        <input type="text" id="policyStartDate" value="{{ policyDetails?.policyStartDate }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="policyEndDate">Policy End Date:</label>
+        <input type="text" id="policyEndDate" value="{{ policyDetails?.policyEndDate }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="premiumPaid">Premiums Paid:</label>
+        <input type="text" id="premiumPaid" value="{{ policyDetails?.premiumPaid }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="claimsSettled">Claims Settled:</label>
+        <input type="text" id="claimsSettled" value="{{ policyDetails?.claimsSettled }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="pendingAmountAfterClaim">Pending Amount After Claim:</label>
+        <input type="text" id="pendingAmountAfterClaim" value="{{ policyDetails?.pendingAmountAfterClaim }}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="nextPremiumDueDate">Next Premium Due Date:</label>
+        <input type="text" id="nextPremiumDueDate" value="{{ policyDetails?.nextPremiumDueDate }}" readonly>
+      </div>
+      <div *ngFor="let claim of claimDetails">
+        <div><h4>View ClaimDetails</h4></div>
+        <button (click)="viewClaimDetails(claim.claimNumber)">
+          {{ claim.claimNumber }}
+</button>
+      </div>
+      
+      <button type="button" (click)="goBack()">Back to Data Table</button>
+    </form>
+    
+    <div *ngIf="loading" class="loading-message">
+      <p>Loading policy details...</p>
+    </div>
+  </div>
+  

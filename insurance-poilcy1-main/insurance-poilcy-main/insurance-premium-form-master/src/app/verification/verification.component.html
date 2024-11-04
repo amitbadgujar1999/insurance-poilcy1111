@@ -1,0 +1,26 @@
+<!-- verification.component.html -->
+
+<div class="policy-list">
+    <h2>Pending Policies for Approval</h2>
+    <table *ngIf="policies.length > 0">
+      <thead>
+        <tr>
+          <th>Policy Number</th>
+          <th>Policy Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let policy of policies">
+          <td>{{ policy.policyNumber }}</td>
+          <td>{{ policy.policyStatus }}</td>
+          <td>
+            <button (click)="approvePolicy(policy.policyNumber)">Approve</button>
+            <button (click)="rejectPolicy(policy.policyNumber)">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="policies.length === 0">No policies pending approval.</p>
+  </div>
+  

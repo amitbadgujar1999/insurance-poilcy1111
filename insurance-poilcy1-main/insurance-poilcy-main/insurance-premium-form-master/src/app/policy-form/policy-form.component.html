@@ -1,0 +1,61 @@
+<div class="policy-form-container">
+  <h1>Insurance Policy Form</h1>
+  
+  <form (ngSubmit)="onSubmit()">
+    <fieldset>
+
+      <label for="policyNumber">Policy Number</label>
+      <input type="text" id="policyNumber" [(ngModel)]="policyModel.policyNumber" name="policyNumber" disabled />
+
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" [(ngModel)]="policyModel.firstName" name="firstName" required />
+
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" [(ngModel)]="policyModel.lastName" name="lastName" required />
+
+      <label for="insuranceCoverage">Insurance Coverage</label>
+      <select id="insuranceCoverage" [(ngModel)]="policyModel.insuranceCoverage" name="insuranceCoverage" required>
+        <option *ngFor="let option of coverageOptions" [value]="option">
+          {{ option | number:'1.0-0' }}
+        </option>
+      </select>
+
+      <label for="insurancePremium">Insurance Premium</label>
+      <input type="number" id="insurancePremium" [(ngModel)]="policyModel.insurancePremium" name="insurancePremium" required />
+
+      <label for="policyStartDate">Policy Start Date</label>
+      <input type="date" id="policyStartDate" [(ngModel)]="policyModel.policyStartDate" name="policyStartDate" required />
+
+      <label for="policyEndDate">Policy End Date</label>
+      <input type="date" id="policyEndDate" [(ngModel)]="policyModel.policyEndDate" name="policyEndDate" required />
+
+      <!-- Display the fixed policy status -->
+      <label for="policyStatus">Policy Status</label>
+      <input type="text" id="policyStatus" [value]="policyModel.policyStatus" disabled />
+    </fieldset>
+
+    <fieldset>
+      <legend>Dependents</legend>
+      
+      <button type="button" (click)="addDependent()" class="add-dependent-button">Add Dependent</button>
+
+      <div *ngIf="showDependentForm">
+        <div *ngFor="let dependent of policyModel.dependents; let i = index" class="dependent-item">
+          <label for="dependentName{{i}}">Name</label>
+          <input type="text" id="dependentName{{i}}" [(ngModel)]="dependent.name" name="dependentName{{i}}" required />
+
+          <label for="dependentAge{{i}}">Age</label>
+          <input type="number" id="dependentAge{{i}}" [(ngModel)]="dependent.age" name="dependentAge{{i}}" required />
+
+          <button type="button" (click)="removeDependent(i)" *ngIf="policyModel.dependents.length > 1">Remove</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div *ngIf="isPolicySubmitted" class="success-message">
+    Policy {{ submittedPolicyNumber }} submitted successfully!
+  </div>
+</div>

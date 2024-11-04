@@ -1,0 +1,20 @@
+.login-container {
+  background-color: #dbd7d7;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.login-container h2 {
+  margin-bottom: 1.5rem;
+}
+
+.login-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.login-container .form-control {
+  width: 100%;
+}

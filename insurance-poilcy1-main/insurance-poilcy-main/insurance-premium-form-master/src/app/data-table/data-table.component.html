@@ -1,0 +1,103 @@
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>
+          Insurance Coverage
+          <button (click)="sortBy('insuranceCoverage', 'asc')">↑</button>
+          <button (click)="sortBy('insuranceCoverage', 'desc')">↓</button>
+        </th>
+        <th>
+          Insurance Premium
+          <button (click)="sortBy('insurancePremium', 'asc')">↑</button>
+          <button (click)="sortBy('insurancePremium', 'desc')">↓</button>
+        </th>
+        <th>
+          Policy Number
+          <button (click)="sortBy('policyNumber', 'asc')">↑</button>
+          <button (click)="sortBy('policyNumber', 'desc')">↓</button>
+        </th>
+        <th>
+          Policy Start Date
+          <button (click)="sortBy('policyStartDate', 'asc')">↑</button>
+          <button (click)="sortBy('policyStartDate', 'desc')">↓</button>
+        </th>
+        <th>
+          Policy End Date
+          <button (click)="sortBy('policyEndDate', 'asc')">↑</button>
+          <button (click)="sortBy('policyEndDate', 'desc')">↓</button>
+        </th>
+        <th>Claim Number</th>
+        <th>Claim Status</th>
+        <th>
+          Policy Status
+          <select id="policyStatusFilter" [(ngModel)]="selectedPolicyStatus" (change)="filterByPolicyStatus()">
+            <option value="">All</option>
+            <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+          </select>
+        </th>
+        <th>Actions</th>
+        <th>Policy Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of paginatedUsers">
+        <td>{{ item.firstName }}</td>
+        <td>{{ item.lastName }}</td>
+        <td>{{ item.insuranceCoverage }}</td>
+        <td>{{ item.insurancePremium | currency:'INR':'symbol':'1.0-0' }}</td>
+        <td>
+          <button (click)="viewPolicyDetails(item.policyNumber)">
+            {{ item.policyNumber }}
+          </button>
+        </td>
+        <td>{{ item.policyStartDate | date }}</td>
+        <td>{{ item.policyEndDate | date }}</td>
+        <td>{{ item.claimDetails?.id }}</td>
+        <td>{{ item.claimDetails?.claimStatus }}</td>
+        <td>{{ item.policyStatus || 'Not Set' }}</td>
+        <td>
+          <select (change)="onStatusChange($event, item.policyNumber)" [value]="item.policyStatus || 'inactive'">
+            <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+          </select>
+          <!-- <button (click)="showReasonInput(item.policyNumber)">Update Status</button> -->
+          <button (click)="sendForApproval(item.policyNumber)" *ngIf="item.policyStatus === 'pending'">Send for Approval</button>
+        </td>
+        <td>
+          <button (click)="downloadPolicy(item)">Download</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>x
+
+  <!-- Pagination controls -->
+  <div class="pagination-controls">
+    <button *ngFor="let pageNumber of getPageNumbers()" (click)="onPageChange(pageNumber)">
+      {{ pageNumber }}
+    </button>
+  </div>
+
+  <!-- Policy Pie Chart -->
+  <div style="display: block;">
+    <div style="width: 20%; margin: auto;">
+      <canvas baseChart
+        [data]="doughnutChartData"
+        [options]="doughnutChartOptions"
+        [type]="'doughnut'">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- Reason Input Modal -->
+  <div *ngIf="selectedPolicyNumber" class="modal-overlay" (click)="cancelStatusChange()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Reason for Status Change</h3>
+      <p>Current Status: {{ currentStatus }}</p>
+      <input type="text" [(ngModel)]="changeReason" placeholder="Enter reason" />
+      <button (click)="confirmStatusChange()">Confirm</button>
+      <button (click)="cancelStatusChange()">Cancel</button>
+    </div>
+  </div>
+</div>

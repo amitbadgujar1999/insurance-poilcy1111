@@ -1,0 +1,92 @@
+<div class="container mt-5">
+  <!-- Heading -->
+  <h1 class="text-center mb-4">Insurance Premium Calculation</h1>
+
+  <!-- Form Card -->
+  <div class="card modern-card shadow-lg p-4">
+    <form [formGroup]="premiumForm" (ngSubmit)="onSubmit()">
+      <!-- Customer Name Field -->
+      <div class="form-group mb-4">
+        <label for="customerName">Name:</label>
+        <input id="customerName" formControlName="customerName" class="form-control input-modern" placeholder="Enter your name" />
+      </div>
+
+      <!-- Birthdate Field -->
+      <div class="form-group mb-4">
+        <label for="birthdate">Date of Birth:</label>
+        <input id="birthdate" formControlName="birthdate" type="date" class="form-control input-modern" (change)="calculateAge()" />
+      </div>
+
+      <!-- Age Field (Auto-calculated) -->
+      <div class="form-group mb-4">
+        <label for="age">Age:</label>
+        <input id="age" formControlName="age" type="number" class="form-control input-modern" [value]="age" readonly />
+      </div>
+
+      <!-- Coverage Amount Dropdown -->
+      <div class="form-group mb-4">
+        <label for="coverageAmount">Coverage Amount:</label>
+        <select id="coverageAmount" formControlName="coverageAmount" class="form-control input-modern">
+          <option value="1000000">1,000,000 INR</option>
+          <option value="2000000">2,000,000 INR</option>
+          <option value="3000000">3,000,000 INR</option>
+          <option value="4000000">4,000,000 INR</option>
+          <option value="5000000">5,000,000 INR</option>
+        </select>
+      </div>
+
+      <!-- Years Dropdown -->
+      <div class="form-group mb-4">
+        <label for="years">Years:</label>
+        <select id="years" formControlName="years" class="form-control input-modern">
+          <option value="1">1 Year</option>
+          <option value="2">2 Years</option>
+          <option value="3">3 Years</option>
+          <option value="5">5 Years</option>
+        </select>
+      </div>
+
+      <!-- Dependents Section -->
+      <div formArrayName="dependents" class="mb-4">
+        <div *ngFor="let dependent of dependents().controls; let i = index" [formGroupName]="i" class="form-group mb-3">
+          <label for="dependentName">Dependent Name:</label>
+          <input id="dependentName" formControlName="name" class="form-control input-modern" placeholder="Enter dependent name" />
+
+          <label for="dependentAge">Dependent Age:</label>
+          <input id="dependentAge" formControlName="age" type="number" class="form-control input-modern" placeholder="Enter dependent age" />
+
+          <button type="button" (click)="removeDependent(i)" class="btn btn-danger btn-modern mt-2">Remove Dependent</button>
+        </div>
+        <button type="button" (click)="addDependent()" class="btn btn-primary btn-modern">Add Dependent</button>
+      </div>
+
+      <div>
+        <h4>Select Bad Habit</h4>
+        <label>
+          <input type="checkbox" formControlName="tobacco"> Tobacco
+        </label>
+        <label>
+          <input type="checkbox" formControlName="smoking"> Smoking
+        </label>
+        <label>
+          <input type="checkbox" formControlName="alcohol"> Alcohol
+        </label>
+      </div>
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success btn-lg btn-modern">Submit</button>
+
+      <!-- Display Calculated Premium -->
+      <div *ngIf="totalPremium !== null" class="mt-4">
+        <p class="h4 text-success">Total Premium: {{ totalPremium | number:'1.0-2' }} INR</p>
+      </div>
+
+    </form>
+
+    <!-- Navigation Buttons -->
+    <div class="mt-4">
+      <a routerLink="/policy-form" class="btn btn-secondary btn-lg btn-modern mr-3">Go to Policy Form</a>
+      <a routerLink="/claim-form" class="btn btn-secondary btn-lg btn-modern mr-3">Go to Claim Form</a>
+      <a routerLink="/policystatuscheck" class="btn btn-secondary btn-lg btn-modern">Check Policy Status</a>
+    </div>
+  </div>
+</div>

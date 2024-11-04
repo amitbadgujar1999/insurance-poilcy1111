@@ -1,0 +1,120 @@
+<div class="form-container">
+  <h1 class="form-header">Claim Form</h1>
+
+  <form #claimForm="ngForm" (ngSubmit)="onSubmit(claimForm)">
+    <!-- Claim ID -->
+    <div class="form-group">
+      <label for="id">Claim ID</label>
+      <input type="text" id="id" name="id" [(ngModel)]="claim.id" required />
+    </div>
+    <div class="form-group">
+      <label for="claimNumber">Claim Number</label>
+      <input type="text" id="claimNumber" name="claimNumber" [(ngModel)]="claim.claimNumber" required />
+    </div>
+
+    <!-- Policy Number -->
+    <div class="form-group">
+      <label for="policyNumber">Policy Number</label>
+      <input type="text" id="policyNumber" name="policyNumber" [(ngModel)]="claim.policyNumber" (ngModelChange)="onPolicyNumberChange()" required />
+    </div>
+
+    <!-- Patient Name -->
+    <div class="form-group" *ngIf="claim.policyNumber">
+      <label for="patientName">Patient Name</label>
+      <select id="patientName" name="patientName" [(ngModel)]="claim.patientName" required>
+        <option *ngFor="let user of users" [value]="user.name">{{ user.name }}</option>
+      </select>
+    </div>
+
+    <!-- Date of Claim -->
+    <div class="form-group">
+      <label for="dateOfClaim">Date of Claim</label>
+      <input type="date" id="dateOfClaim" name="dateOfClaim" [(ngModel)]="claim.dateOfClaim" required />
+    </div>
+
+    <!-- Claim Amount -->
+    <div class="form-group">
+      <label for="claimAmount">Claim Amount</label>
+      <input type="number" id="claimAmount" name="claimAmount" [(ngModel)]="claim.claimAmount" required />
+    </div>
+
+    <!-- Claim Status -->
+    <div class="form-group">
+      <label for="claimStatus">Claim Status</label>
+      <input type="text" id="claimStatus" name="claimStatus" [(ngModel)]="claim.claimStatus" required disabled />
+    </div>
+
+    <!-- Date of Incident -->
+    <div class="form-group">
+      <label for="dateOfIncident">Date of Incident</label>
+      <input type="date" id="dateOfIncident" name="dateOfIncident" [(ngModel)]="claim.dateOfIncident" required />
+    </div>
+
+    <!-- Incident Description -->
+    <div class="form-group">
+      <label for="incidentDescription">Incident Description</label>
+      <textarea id="incidentDescription" name="incidentDescription" [(ngModel)]="claim.incidentDescription" required></textarea>
+    </div>
+
+    <!-- Hospital Name -->
+    <div class="form-group">
+      <label for="hospitalName">Hospital Name</label>
+      <input type="text" id="hospitalName" name="hospitalName" [(ngModel)]="claim.hospitalName" required />
+    </div>
+
+    <!-- Doctor Name -->
+    <div class="form-group">
+      <label for="doctorName">Doctor Name</label>
+      <input type="text" id="doctorName" name="doctorName" [(ngModel)]="claim.doctorName" required />
+    </div>
+
+    <!-- Diagnosis -->
+    <div class="form-group">
+      <label for="diagnosis">Diagnosis</label>
+      <input type="text" id="diagnosis" name="diagnosis" [(ngModel)]="claim.diagnosis" required />
+    </div>
+
+    <!-- Treatment Details -->
+    <div class="form-group">
+      <label for="treatmentDetails">Treatment Details</label>
+      <textarea id="treatmentDetails" name="treatmentDetails" [(ngModel)]="claim.treatmentDetails" required></textarea>
+    </div>
+
+    <!-- Amount Approved -->
+    <div class="form-group">
+      <label for="amountApproved">Amount Approved</label>
+      <input type="number" id="amountApproved" name="amountApproved" [(ngModel)]="claim.amountApproved" required />
+    </div>
+
+    <!-- Amount Paid -->
+    <div class="form-group">
+      <label for="amountPaid">Amount Paid</label>
+      <input type="number" id="amountPaid" name="amountPaid" [(ngModel)]="claim.amountPaid" required />
+    </div>
+
+    <!-- Pending Amount -->
+    <div class="form-group">
+      <label for="pendingAmount">Pending Amount</label>
+      <input type="number" id="pendingAmount" name="pendingAmount" [(ngModel)]="claim.pendingAmount" required />
+    </div>
+
+    <!-- Documents Submitted -->
+    <div class="form-group">
+      <label for="documentsSubmitted">Documents Submitted</label>
+      <textarea id="documentsSubmitted" name="documentsSubmitted" [(ngModel)]="claim.documentsSubmitted" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="files">Upload Files</label>
+      <input type="file" id="files" (change)="onFileChange($event)" multiple />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit">Submit</button>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+  </form>
+</div>

@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']" aria-label="Home">
+      <img src="assets/health-Insurance.png" alt="MyApp Logo" class="logo">
+      HEALTH INSURANCE APP
+    </a>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="active">Admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/premium-form']" routerLinkActive="active">Customer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/doctor']" routerLinkActive="active">Doctor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/verification']" routerLinkActive="active">Verification Team</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Conditionally display the image based on the current route -->
+<div class="image-container" *ngIf="isHomeRoute()">
+  <img src="assets/health-insurance-banner.jpg" alt="Below Navbar Image" class="below-navbar-image">
+</div>
+
+<router-outlet></router-outlet>
